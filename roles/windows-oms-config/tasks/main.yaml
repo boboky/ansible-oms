@@ -1,0 +1,5 @@
+---
+
+- name: Enable firewall rule for using ICMP - Network Performance montior
+  script: enableRules_icmp.ps1
+  register: out

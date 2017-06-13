@@ -1,0 +1,45 @@
+---
+
+  - name: Deploy OMS
+    azure_rm_deployment:
+      state: present
+      resource_group_name: "{{ oms_resourceGroup }}"
+      location: "{{ oms_resourceGroupLocation }}"
+      template: "{{ lookup('template', '../armtemplate/arm_oms.json') }}"
+      deployment_mode: incremental
+
+  - name: Deploy Free Tier OMS Dashboard
+    azure_rm_deployment:
+      state: present
+      resource_group_name: "{{ oms_resourceGroup }}"
+      location: "{{ oms_resourceGroupLocation }}"
+      template: "{{ lookup('template', '../armtemplate/arm_oms_dashboard_freetier.json') }}"
+      deployment_mode: incremental
+
+  - name: Deploy Server Perfromance Dashboard
+    azure_rm_deployment:
+      state: present
+      resource_group_name: "{{ oms_resourceGroup }}"
+      location: "{{ oms_resourceGroupLocation }}"
+      template: "{{ lookup('template', '../armtemplate/arm_oms_dahsboard_serverperformance.json') }}"
+      deployment_mode: incremental
+ 
+  - name: Deploy Storage Analytics Solution
+    azure_rm_deployment:
+      state: present
+      resource_group_name: "{{ oms_resourceGroup }}"
+      location: "{{ oms_resourceGroupLocation }}"
+      template: "{{ lookup('template', '../armtemplate/arm_oms_storage_analytics_solution.json') }}"
+      deployment_mode: incremental
+    tags:
+      - storageanalytics
+
+  - name: Deploy OMS Alert
+    azure_rm_deployment:
+      state: present
+      resource_group_name: "{{ oms_resourceGroup }}"
+      location: "{{ oms_resourceGroupLocation }}"
+      template: "{{ lookup('template', '../armtemplate/arm_oms_alert.json') }}"
+      deployment_mode: incremental
+    with_items:
+      - "{{ alert }}"

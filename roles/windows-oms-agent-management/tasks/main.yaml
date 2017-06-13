@@ -1,0 +1,15 @@
+---
+
+- name: Create directory structure
+  win_file:
+    path: C:\Source
+    state: directory
+
+- name: copy windows oms agent
+  win_copy:
+    src: MMASetup-AMD64.exe
+    dest: C:\Source\MMASetup-AMD64.exe
+
+- name: Install and configure oms agent using powershell script
+  script: installomsagent.ps1 '{{ server.environment[type].oms_workspace }}' '{{ server.environment[type].oms_key }}'
+  register: out

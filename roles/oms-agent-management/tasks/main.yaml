@@ -1,0 +1,19 @@
+---
+
+- name: copy oms agent
+  become: true
+  copy: src=omsagent-1.3.3-15.universal.x64.sh dest=/tmp/ mode=0755 owner=root group=root 
+
+- name: install oms prerequisits
+  become: true
+  yum:
+    name: policycoreutils-python
+    state: present
+
+- name: install oms agent
+  become: true
+  shell: "/tmp/omsagent-*.universal.x64.sh --upgrade"
+
+- name: Attach to oms instance
+  become: true
+  shell: "{{ server.environment[type].omsadmin }} -w {{ server.environment[type].oms_workspace }} -s {{ server.environment[type].oms_key }}"

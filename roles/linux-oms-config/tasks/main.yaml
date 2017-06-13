@@ -1,0 +1,16 @@
+---
+- name: Make my directory tree readable
+  file:
+    path: /var/log/audit
+    mode: u=rwX,g=rX,o=rX
+    recurse: yes
+
+- name: Make log files readable
+  file:
+    path: /var/log/clamd.log
+    mode: 0644
+
+- name: Make log files readable
+  file:
+    path: /var/log/freshclam.log
+    mode: 0644

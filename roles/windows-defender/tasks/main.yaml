@@ -1,0 +1,11 @@
+---
+
+- name: Install Windows Defender
+  win_feature:
+    name: Windows-Defender  
+    state: present
+
+- name: Install Windows Defender GUI
+  win_feature:
+    name: Windows-Defender-GUI
+    state: present
